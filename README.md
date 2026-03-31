@@ -1,6 +1,6 @@
 # Brain Network Visualizer
 
-A web-based 3D brain functional connectivity visualization pipeline developed for the **SIGGRAPH 2026 ACM Student Research Competition (SRC)**.
+A web-based 3D brain functional connectivity visualization pipeline.
 
 ## Overview
 
