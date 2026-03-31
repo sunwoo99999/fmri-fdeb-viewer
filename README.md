@@ -1,6 +1,8 @@
 # Brain Network Visualizer
 
 A web-based 3D brain functional connectivity visualization pipeline.
+<img width="1420" height="813" alt="resultviewer" src="https://github.com/user-attachments/assets/e67acb6f-a25f-49e6-8818-a1fdc91edd84" />
+
 
 ## Overview
 
