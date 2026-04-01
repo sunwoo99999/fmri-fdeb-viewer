@@ -4,7 +4,7 @@ A web-based 3D brain functional connectivity visualization pipeline for fMRI-der
 
 ## Results
 
-![fMRI BOLD Network Viewer](resultviewer.png)
+<img width="600" height="620" alt="image" src="https://github.com/user-attachments/assets/105ac5ad-8884-43cc-9332-2266bfef64f4" />
 
 _200 voxels across visual cortex regions V1–V4, colour-coded by region. FDEB-bundled edges pulse with HRF-derived $t_{peak}$ animations rendered entirely on the GPU.\_
 
