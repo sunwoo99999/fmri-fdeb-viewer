@@ -6,7 +6,7 @@ A web-based 3D brain functional connectivity visualization pipeline for fMRI-der
 
 ![fMRI BOLD Network Viewer](resultviewer.png)
 
-_200 voxels across visual cortex regions V1–V4, colour-coded by region. FDEB-bundled edges pulse with HRF-derived $t_{peak}$ animations rendered entirely on the GPU._
+_200 voxels across visual cortex regions V1–V4, colour-coded by region. FDEB-bundled edges pulse with HRF-derived $t_{peak}$ animations rendered entirely on the GPU.\_
 
 ## Overview
 
@@ -53,10 +53,10 @@ This project addresses the visual clutter problem that arises when rendering lar
 ### Prerequisites
 
 - Node.js ≥ 18
-- Python ≥ 3.9 with `numpy` and `scipy` installed
+- Python ≥ 3.9 with `numpy` installed
 
 ```bash
-pip install numpy scipy
+pip install numpy
 ```
 
 ### 1. Generate network data (offline)
@@ -66,6 +66,17 @@ python generate_fdeb.py
 ```
 
 This performs hierarchical FDEB physics simulation (P = 2 → 4 → 8 segments) and writes the resulting spline control points and animation parameters to `network_data.json`.
+
+Output to expect:
+
+```
+Nodes generated : 200
+Edges created   : 450
+Computing edge compatibility...
+Compatible pairs: <N>
+Running hierarchical FDEB  levels=[2, 4, 8], 40 iters/level...
+✓  network_data.json written
+```
 
 ### 2. Copy data to the frontend
 
@@ -154,6 +165,21 @@ This produces a travelling activation wavefront across V1 → V4 at 60 fps with 
 ## Research Context
 
 Brain functional connectivity is analyzed from fMRI BOLD signals using Multiscale Entropy (MSE) and ANCOVA to study aging and neurological disease. This visualization pipeline makes those findings accessible and explorable directly in the browser, without requiring specialized software installation.
+
+## Troubleshooting
+
+### Neural fibres invisible or viewport corrupted
+
+This is caused by stale `brain-viewer/public/network_data.json` containing divergent control-point coordinates (values in the `e+48` range). It occurs when the viewer's public file has not been updated after re-running the Python script.
+
+**Fix:** regenerate and copy:
+
+```powershell
+python generate_fdeb.py
+Copy-Item network_data.json brain-viewer\public\network_data.json
+```
+
+**Root cause:** earlier versions of `generate_fdeb.py` accumulated the electrostatic force as a raw sum over all compatible neighbours. With 50+ neighbours per edge, the force grew ~50× per iteration and diverged exponentially across 40 × 3 iterations. The fix applies a **compatibility-weighted average** and **per-iteration step clamping** (`MAX_STEP = 0.5`).
 
 ## License
 
