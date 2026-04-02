@@ -32,7 +32,6 @@ This project addresses the visual clutter problem that arises when rendering lar
 
 ```
 .
-├── prd.md                  # Product Requirements Document
 ├── generate_fdeb.py        # Python script: offline FDEB computation
 ├── network_data.json       # Pre-computed network data (root-level copy)
 ├── BrainNetworkViewer.jsx  # Standalone viewer component (prototype)
